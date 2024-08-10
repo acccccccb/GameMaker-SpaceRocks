@@ -56,6 +56,69 @@ if(rocket_status == 1)
 	}
 	image_angle = rocket_angle;
 	direction = rocket_angle;
+
+	/// @DnDAction : YoYo Games.Particles.Part_Syst_Create
+	/// @DnDVersion : 1.2
+	/// @DnDHash : 64A641C5
+	/// @DnDParent : 75DA4417
+	/// @DnDArgument : "var" "temp_instances"
+	temp_instances = part_system_create_layer("Instances", 0);
+
+	/// @DnDAction : YoYo Games.Particles.Part_Type_Create
+	/// @DnDVersion : 1.1
+	/// @DnDHash : 768EB96C
+	/// @DnDParent : 75DA4417
+	type = part_type_create();
+	// no blending
+
+	/// @DnDAction : YoYo Games.Particles.Part_Type_Size
+	/// @DnDVersion : 1
+	/// @DnDHash : 00D586C4
+	/// @DnDParent : 75DA4417
+	part_type_size(type, 0.1, 1, 0, 0);
+
+	/// @DnDAction : YoYo Games.Particles.Part_Type_Color
+	/// @DnDVersion : 1
+	/// @DnDHash : 6A6CB56A
+	/// @DnDParent : 75DA4417
+	/// @DnDArgument : "startcol" "$FF0000FF"
+	/// @DnDArgument : "midcol" "$FF00B2FF"
+	/// @DnDArgument : "endcol" "$FF00FFFA"
+	part_type_colour3(type, $FF0000FF & $FFFFFF, $FF00B2FF & $FFFFFF, $FF00FFFA & $FFFFFF);
+
+	/// @DnDAction : YoYo Games.Particles.Part_Type_Life
+	/// @DnDVersion : 1
+	/// @DnDHash : 481A7A02
+	/// @DnDParent : 75DA4417
+	/// @DnDArgument : "maxlife" "room_speed * 0.2"
+	part_type_life(type, 0, room_speed * 0.2);
+
+	/// @DnDAction : YoYo Games.Particles.Part_Type_Direction
+	/// @DnDVersion : 1
+	/// @DnDHash : 0E4BD0A5
+	/// @DnDParent : 75DA4417
+	/// @DnDArgument : "mindir" "direction - 180 - 50"
+	/// @DnDArgument : "maxdir" "direction - 180 + 50"
+	part_type_direction(type, direction - 180 - 50, direction - 180 + 50, 0, 0);
+
+	/// @DnDAction : YoYo Games.Particles.Part_Type_Speed
+	/// @DnDVersion : 1
+	/// @DnDHash : 53249BF6
+	/// @DnDParent : 75DA4417
+	/// @DnDArgument : "maxspeed" "4"
+	part_type_speed(type, 1, 4, 0, 0);
+
+	/// @DnDAction : YoYo Games.Particles.Part_Particles_Create
+	/// @DnDVersion : 1
+	/// @DnDHash : 1751B8DE
+	/// @DnDParent : 75DA4417
+	/// @DnDArgument : "x" "lengthdir_x(6, rocket_angle)"
+	/// @DnDArgument : "x_relative" "1"
+	/// @DnDArgument : "y" "lengthdir_y(0, rocket_angle)"
+	/// @DnDArgument : "y_relative" "1"
+	/// @DnDArgument : "system" "temp_instances"
+	/// @DnDArgument : "number" "20"
+	part_particles_create(temp_instances, x + lengthdir_x(6, rocket_angle), y + lengthdir_y(0, rocket_angle), type, 20);
 }
 
 /// @DnDAction : YoYo Games.Instances.Set_Alarm
